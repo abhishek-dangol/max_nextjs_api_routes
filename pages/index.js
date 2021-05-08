@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import fs from "fs";
 
 function HomePage() {
   const emailInputRef = useRef();
@@ -7,10 +6,20 @@ function HomePage() {
 
   function submitFormHandler(event) {
     event.preventDefault();
-    const enteredEMail = emailInputRef.current.value;
+    const enteredEmail = emailInputRef.current.value;
     const enteredFeedback = feedbackInputRef.current.value;
 
-    fetch();
+    const reqBody = { email: enteredEmail, text: enteredFeedback };
+
+    fetch("/api/feedback", {
+      method: "POST",
+      body: JSON.stringify(reqBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }
   return (
     <div>
