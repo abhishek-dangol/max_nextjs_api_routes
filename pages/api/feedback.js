@@ -11,8 +11,8 @@ function handler(req, res) {
       email: email,
       text: feedbackText,
     };
-    const filePath = path.join(process.cws(), "data", "feedback.json");
-    const fileData = JSON.parse(filePath);
+    const filePath = path.join(process.cwd(), "data", "feedback.json");
+    const fileData = fs.readFileSync(filePath);
     const data = JSON.parse(fileData);
     data.push(newFeedback);
     fs.writeFileSync(filePath, JSON.stringify(data));
